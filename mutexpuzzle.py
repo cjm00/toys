@@ -1,3 +1,5 @@
+PUZZLE_GOAL = 16384
+
 
 class LockableAddress(object):
 	def __init__(self, index, allocated=False, locked=False):
@@ -58,14 +60,15 @@ class LockableArray(object):
 	def simulate(self):
 		for item in self.array:
 			if not item.isallocated():
-				print('Propogating item %r' % item.index)
+				print("\rSimulating, %2.1f percent done" % (100*item.index/(PUZZLE_GOAL+2)), end=''),
 				self.propogate(item)
-	
+				
 	def maxlocked(self):
 		lockedlist = [address for address in self.array if address.islocked()]
 		return max(lockedlist)
 		
 	
-PuzzleArray = LockableArray(16384)
+PuzzleArray = LockableArray(PUZZLE_GOAL)
 PuzzleArray.simulate()
-print(PuzzleArray.maxlocked())
+print()
+print("Highest locked address is", PuzzleArray.maxlocked())
