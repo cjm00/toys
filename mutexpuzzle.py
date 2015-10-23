@@ -45,7 +45,7 @@ class LockableAddress(object):
 		
 class LockableArray(object):
 	def __init__(self, size):
-		self.array = [LockableAddress(k) for k in range(2, size+2)]
+		self.array = [LockableAddress(k) for k in range(2, size)]
 	
 	def propogate(self, address):
 		address.allocate()
@@ -60,7 +60,7 @@ class LockableArray(object):
 	def simulate(self):
 		for item in self.array:
 			if not item.isallocated():
-				print("\rSimulating, %2.1f percent done" % (100*item.index/(PUZZLE_GOAL+2)), end=''),
+				print("\rSimulating, %2.1f percent done" % (100*item.index/(PUZZLE_GOAL)), end=''),
 				self.propogate(item)
 				
 	def maxlocked(self):
